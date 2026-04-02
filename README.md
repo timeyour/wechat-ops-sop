@@ -6,15 +6,58 @@
 
 ---
 
+## 一键安装（两种方式）
+
+### 方式 A：GitHub 懒人包（无需账号，推荐）
+
+```bash
+git clone https://github.com/timeyour/wechat-ops-sop.git
+cd wechat-ops-sop
+# Windows:
+.\install.ps1
+# Mac/Linux:
+chmod +x install.sh && ./install.sh
+```
+
+### 方式 B：Clawdhub 一键（小龙虾/OpenClaw 用户）
+
+```bash
+# 安装全部 13 个 skill
+clawdhub install wechat-ops-sop
+
+# 或单独安装某个 skill
+clawdhub install wechat-image-gen
+clawdhub install wechat-seo-geo
+```
+
+发布方式见 [PUBLISH.md](PUBLISH.md)。
+
+---
+
+## 环境变量（可选，首次使用配置）
+
+| 变量 | 用途 | 必填 |
+|------|------|------|
+| `DASHSCOPE_API_KEY` | 豆包模型（内容写作、排版、语料等核心功能） | **推荐配置** |
+| `GEMINI_API_KEY` | 图片生成（可选，有则优先） | 可选 |
+| `WECHAT_APPID` / `WECHAT_SECRET` | 公众号发布 | 可选 |
+| `TENCENT_MAP_KEY` | SEO + GEO 优化 | 可选 |
+| `BRAVE_SEARCH_API_KEY` | 信息采集 | 可选 |
+| `GITHUB_TOKEN` | 运营复盘 | 可选 |
+
+---
+
 ## 仓库结构
 
 ```
 wechat-ops-sop/
 ├── SOP.md                        ← Phase 0-8 完整操作流程
 ├── README.md                     ← 本文件
+├── install.ps1                   ← Windows 一键安装脚本
+├── install.sh                     ← Mac/Linux 一键安装脚本
+├── PUBLISH.md                    ← Clawdhub 发布指南
 ├── .gitignore
-└── skills/                       ← 13 个独立 Skill
-    ├── README.md                 ← Skill 索引
+└── skills/                       ← 13 个独立 Skill（Clawdhub 标准格式）
     ├── topic-discovery/          ← 选题发现
     ├── corpus-playbook/          ← 语料学习 + 30话题画廊
     ├── info-gathering/            ← 全网信息采集

@@ -67,7 +67,7 @@
 python img_fallback.py cover "文章标题" --style tech
 ```
 
-自动走降级链：截图 → 豆包4.0 → 豆包4.5 → Unsplash → 输出prompt
+自动走降级链：截图 → 🍌Gemini(nano_banana) → 豆包4.0 → 豆包4.5 → Unsplash → 输出prompt
 
 **产出：**
 

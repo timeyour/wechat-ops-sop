@@ -86,7 +86,7 @@ pip install feedparser beautifulsoup4 readability-lxml pillow requests
 | **info-gathering** | 全网素材收集，多源交叉验证 |
 | **content-writing** | 洋葱结构，完读率优先 |
 | **seo-geo** | 搜一搜优化 + AI搜索优化 |
-| **image-generation** | 截图优先，豆包封面降级链 |
+| **image-generation** | 截图优先，Gemini+豆包双引擎降级链 |
 | **theme-gallery** | 8主题画廊，点选切换 |
 | **typesetting-publish** | WenYan排版→合规→推草稿→冷启动 |
 | **compliance-check** | 16项检查（红线+必须+优化） |

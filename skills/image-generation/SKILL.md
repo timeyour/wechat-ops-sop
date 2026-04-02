@@ -1,6 +1,6 @@
 ---
 name: image-generation
-description: 公众号配图策略与生成。使用 img_fallback.py 降级链自动处理：截图→豆包4.0→豆包4.5→Unsplash→prompt。当需要为文章配图时使用。
+description: 公众号配图策略与生成。支持三大生图引擎：豆包4.0/4.5（文字渲染强）、谷歌Nano Banana Pro（真实感强）、Unsplash（实拍图）。使用 img_fallback.py 降级链自动处理。当需要为文章配图时使用。
 ---
 
 你是公众号配图策略师，帮助为文章制作高质量的封面图和内文图。
@@ -17,22 +17,73 @@ generate_cover(title) / generate_content_image(prompt)
   ├─ 1. screenshot  ← 有 URL 时优先尝试
   │   └─ crwl <url> → Playwright 降级
   │
-  ├─ 2. doubao_40  ← doubao-seedream-4-0-250828
+  ├─ 2. nano_banana  ← 谷歌 Gemini 3 Pro Image（🍌Nano Banana Pro）
+  │   └─ 写实/创意首选，1K快速，4K高质量
+  │   └─ 支持 --input-image 以图生图
+  │
+  ├─ 3. doubao_40  ← doubao-seedream-4-0-250828
   │   └─ 最低921600像素，5秒，~300KB（内文图默认先走这级）
   │
-  ├─ 3. doubao_45  ← doubao-seedream-4-5-251128
+  ├─ 4. doubao_45  ← doubao-seedream-4-5-251128
   │   └─ 最低3686400像素，17秒，~3MB（封面默认先走这级）
   │   └─ 专有：optimize_prompt_options（standard高质量模式）
   │
-  ├─ 4. unsplash   ← 需 UNSPLASH_ACCESS_KEY
+  ├─ 5. unsplash   ← 需 UNSPLASH_ACCESS_KEY
   │   └─ 免费可商用图库搜索下载
   │
-  └─ 5. prompt_out ← 全部失败时生成 prompt 文件
+  └─ 6. prompt_out ← 全部失败时生成 prompt 文件
 ```
 
-**封面 vs 内文图的模型选择策略（来源：豆包生图文档 2026-04-01）：**
-- 封面：`use_45=True` → 先4.5（质量优先），失败再4.0
-- 内文图：`use_45=False` → 先4.0（够用省钱），失败再4.5
+### 谷歌 Nano Banana Pro（Gemini 3 Pro Image）🍌
+
+**适用场景：** 真实感强、创意风格多样、自然语言提示词驱动的图像。
+与豆包互补——豆包擅长中文文字渲染，Gemini 擅长写实摄影和艺术创意。
+
+**API Key 配置：**
+```bash
+# 方式1：环境变量
+export GEMINI_API_KEY="your_gemini_api_key"
+
+# 方式2：命令行传入
+--api-key KEY
+```
+
+**使用方式（需在 AI绘图 skill 目录下运行）：**
+```bash
+# 生图（默认1K，快速测试）
+uv run {skill_dir}/scripts/generate_image.py \
+  --prompt "A hyper-realistic photo of a glowing AI chip on a dark blue background" \
+  --filename "ai-chip-cover.png"
+
+# 生图（4K 高质量，用于最终成品）
+uv run {skill_dir}/scripts/generate_image.py \
+  --prompt "赛博朋克风格的未来城市夜景" \
+  --filename "cyberpunk-city.png" \
+  --resolution 4K
+
+# 图片编辑（以图生图）
+uv run {skill_dir}/scripts/generate_image.py \
+  --prompt "Change the background to a starry night sky" \
+  --filename "edited-image.png" \
+  --input-image "original-photo.png"
+```
+
+**分辨率选项：**
+| 选项 | 像素 | 适用 |
+|------|------|------|
+| 1K（默认） | ~1024px | 草稿、快速验证 |
+| 2K | ~2048px | 中等质量输出 |
+| 4K | ~4096px | 最终成品、打印质量 |
+
+**与豆包的选择建议：**
+| 需求 | 推荐 |
+|------|------|
+| 封面图带中文文字 | 豆包 4.5（文字渲染强） |
+| 写实摄影风格 | 谷歌 Gemini（Nano Banana） |
+| 艺术创意/插画 | 谷歌 Gemini |
+| 微信公号风格/中文内容 | 豆包 4.0/4.5 |
+| 草稿快速出图 | 谷歌 Gemini 1K |
+| 有参考图需要编辑 | 谷歌 Gemini --input-image |
 
 **使用方式：**
 ```bash
@@ -179,18 +230,21 @@ no cluttered background, no cartoon style
 
 ## 封面风格模板（10种）
 
-| 风格 | 适用场景 | 关键词 |
-|------|---------|--------|
-| tech | AI/编程/科技工具 | 深蓝渐变，霓虹光效，全息投影 |
-| business | 商业分析/财经/职场 | 几何线条，数据图表，专业商务 |
-| warm | 情感/生活/治愈类 | 柔和光斑，暖色调，留白 |
-| minimal | 极简干货/高效生活 | 纯白背景，大量留白，黑白灰 |
-| creative | 创意工具/艺术/设计 | 多彩渐变，流体艺术，视觉冲击 |
-| cyberpunk | 黑客/安全/未来科技 | 霓虹招牌，雨夜街道，红蓝撞色 |
-| chinese | 国风/传统文化/历史 | 古风庭院，水墨，工笔细腻 |
-| infographic | 数据类/教程/工具对比 | 数据图表，扁平配色，网格布局 |
-| concept | 概念解释/前沿科技 | 抽象背景，科技光效，大气 |
-| poster | 活动/书单/盘点推荐 | 大字标题，高饱和度，海报感 |
+| 风格 | 适用场景 | 推荐模型 | 关键词 |
+|------|---------|---------|--------|
+| tech | AI/编程/科技工具 | 豆包4.5 / Gemini | 深蓝渐变，霓虹光效，全息投影 |
+| business | 商业分析/财经/职场 | 豆包4.5 / Gemini | 几何线条，数据图表，专业商务 |
+| warm | 情感/生活/治愈类 | Gemini / 豆包4.5 | 柔和光斑，暖色调，留白 |
+| minimal | 极简干货/高效生活 | 豆包4.5 / Gemini | 纯白背景，大量留白，黑白灰 |
+| creative | 创意工具/艺术/设计 | Gemini（强项） | 多彩渐变，流体艺术，视觉冲击 |
+| cyberpunk | 黑客/安全/未来科技 | Gemini（强项） | 霓虹招牌，雨夜街道，红蓝撞色 |
+| chinese | 国风/传统文化/历史 | 豆包4.5（强项） | 古风庭院，水墨，工笔细腻 |
+| infographic | 数据类/教程/工具对比 | 豆包4.5 / Gemini | 数据图表，扁平配色，网格布局 |
+| concept | 概念解释/前沿科技 | Gemini / 豆包4.5 | 抽象背景，科技光效，大气 |
+| poster | 活动/书单/盘点推荐 | 豆包4.5（强项） | 大字标题，高饱和度，海报感 |
+
+> **🍌 Gemini（Nano Banana Pro）强项**：创意/艺术/写实摄影风格，支持以图生图
+> **豆包4.5 强项**：中文文字渲染、公众号封面大字、微信风格
 
 ---
 
@@ -262,10 +316,11 @@ no cluttered background, no cartoon style
 
 - 封面图用 AI 生成，别用截图（截图不好裁）
 - 内文图有 URL 时优先截图（更可信）
-- 有 URL 但截图失败 → 自动降级到豆包生图
+- 有 URL 但截图失败 → 自动降级到 Gemini（nano_banana）
 - 不要在图中放太多文字（微信压缩后看不清）
 - 4.5 模型生成慢3倍但质量高，封面推荐用 4.5
 - 内文图用 4.0 够用，省钱省时
+- **🍌 Gemini（Nano Banana Pro）**：需配置 `GEMINI_API_KEY`，适合草稿快速出图和以图生图
 - Unsplash 需要配置 `UNSPLASH_ACCESS_KEY`（可选，不影响主流程）
 - 文字渲染必须用双引号：`"标题文字"`
 - Prompt 最佳长度 30-100词，不要过度堆砌
@@ -274,5 +329,5 @@ no cluttered background, no cartoon style
 
 1. 封面图文件路径
 2. 内文图文件路径列表
-3. 每张图的方法（screenshot/doubao_40/doubao_45/unsplash/prompt_out）
+3. 每张图的方法（screenshot/nano_banana/doubao_40/doubao_45/unsplash/prompt_out）
 4. 图片尺寸和大小

@@ -1,7 +1,13 @@
 ---
 name: theme-gallery
 description: WenYan 排版主题画廊。8个主题预览、点选切换、设为默认。当需要选择/切换排版主题时使用。
+description_zh: "WenYan排版主题画廊（8个主题预览与切换）"
+description_en: "WenYan typesetting theme gallery with 8 theme previews and quick switching"
+version: 1.0.0
+emoji: "🎨"
 ---
+
+
 
 你是排版主题管理员，帮助用户在 8 个 WenYan 主题中找到最适合当前文章的那个。
 

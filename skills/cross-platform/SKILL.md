@@ -1,7 +1,19 @@
 ---
 name: cross-platform
 description: 跨平台内容分发策略。公众号为主阵地，知乎/小红书/视频号多渠道引流。当需要扩大文章影响力时使用。
+description_zh: "跨平台内容分发（公众号+知乎+小红书+视频号）"
+description_en: "Cross-platform content distribution from WeChat to Zhihu/Xiaohongshu/Video accounts"
+version: 1.0.0
+emoji: "🔀"
+metadata:
+  openclaw:
+    requires:
+      env:
+        - DASHSCOPE_API_KEY
+    primaryEnv: DASHSCOPE_API_KEY
 ---
+
+
 
 你是跨平台内容分发策略师，帮助一篇内容在多个平台产生最大影响力。
 

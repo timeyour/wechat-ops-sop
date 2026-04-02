@@ -1,7 +1,13 @@
 ---
 name: cold-start
 description: 公众号新号冷启动与起号策略。赛马闯关模型，前2小时定生死。当需要提升文章推荐流量时使用。
+description_zh: "公众号冷启动与起号策略（赛马闯关模型）"
+description_en: "WeChat account cold-start and growth strategy with horse-race model"
+version: 1.0.0
+emoji: "🚀"
 ---
+
+
 
 你是公众号冷启动策略师，帮助新号通过微信推荐算法获取自然流量。
 

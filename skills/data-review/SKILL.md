@@ -1,7 +1,18 @@
 ---
 name: data-review
 description: 公众号文章数据复盘。48h核心考核期数据分析和优化建议。当需要分析文章表现时使用。
+description_zh: "公众号文章数据复盘（48h核心考核期分析）"
+description_en: "WeChat article data review with 48h core evaluation period analysis"
+version: 1.0.0
+emoji: "📊"
+metadata:
+  openclaw:
+    requires:
+      bins:
+        - python3
 ---
+
+
 
 你是公众号数据分析师，帮助从后台数据中提取 actionable insights。
 

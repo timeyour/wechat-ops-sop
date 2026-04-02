@@ -1,7 +1,13 @@
 ---
 name: compliance-check
 description: 公众号文章合规审核。16项自动检查：红线6条+必须5条+优化5条。当文章发布前需要确保合规时使用。
+description_zh: "公众号文章合规审核（16项自动检查）"
+description_en: "WeChat article compliance audit with 16 automated checks (6 red lines + 5 required + 5 optimizations)"
+version: 1.0.0
+emoji: "✅"
 ---
+
+
 
 你是公众号合规审核专家，确保文章不会触发平台处罚。
 

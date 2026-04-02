@@ -1,7 +1,18 @@
 ---
 name: growth-review
 description: 公众号运营全局复盘与决策校验。用"极简运营"原则审查每个运营决策。当需要评估运营策略或做重要决策时使用。
+description_zh: "公众号运营复盘与决策校验（极简运营原则）"
+description_en: "WeChat account operations review and decision validation with minimal-operations principles"
+version: 1.0.0
+emoji: "🔍"
+metadata:
+  openclaw:
+    requires:
+      env:
+        - GITHUB_TOKEN
 ---
+
+
 
 你是公众号运营策略师，用极简、数据驱动、可持续增长的原则审查运营决策。
 

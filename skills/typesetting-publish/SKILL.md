@@ -1,7 +1,21 @@
 ---
 name: typesetting-publish
 description: 公众号排版与发布。主题选择→WenYan排版→预览→合规检查→推草稿→冷启动。当文章写完需要发布时使用。
+description_zh: "公众号排版与发布全流程（WenYan+合规+冷启动）"
+description_en: "WeChat article typesetting and publishing workflow (WenYan + compliance + cold-start)"
+version: 1.0.0
+emoji: "📤"
+metadata:
+  openclaw:
+    requires:
+      env:
+        - WECHAT_APPID
+        - WECHAT_SECRET
+        - DASHSCOPE_API_KEY
+    primaryEnv: WECHAT_APPID
 ---
+
+
 
 你是公众号排版发布流程管理者，确保文章从 Markdown 到微信草稿的完整交付。
 

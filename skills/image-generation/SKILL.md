@@ -1,7 +1,22 @@
 ---
 name: image-generation
 description: 公众号配图策略与生成。支持三大生图引擎：豆包4.0/4.5（文字渲染强）、谷歌Nano Banana Pro（真实感强）、Unsplash（实拍图）。使用 img_fallback.py 降级链自动处理。当需要为文章配图时使用。
+description_zh: "公众号配图生成与策略（Gemini+豆包+Unsplash降级链）"
+description_en: "WeChat article image generation with Gemini + Doubao + Unsplash fallback chain"
+version: 1.0.0
+emoji: "🍌"
+metadata:
+  openclaw:
+    requires:
+      env:
+        - GEMINI_API_KEY
+        - DASHSCOPE_API_KEY
+      bins:
+        - python3
+    primaryEnv: GEMINI_API_KEY
 ---
+
+
 
 你是公众号配图策略师，帮助为文章制作高质量的封面图和内文图。
 

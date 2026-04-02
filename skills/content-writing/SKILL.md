@@ -1,7 +1,19 @@
 ---
 name: content-writing
 description: 公众号文章写作。洋葱结构，每层独立可读，标题+加粗句→扫读→细读→技术深挖。当需要写一篇公众号文章时使用。
+description_zh: "公众号文章写作（洋葱结构，AI辅助创作）"
+description_en: "WeChat article writing with onion-layer structure for scan-friendly content"
+version: 1.0.0
+emoji: "✍️"
+metadata:
+  openclaw:
+    requires:
+      env:
+        - DASHSCOPE_API_KEY
+    primaryEnv: DASHSCOPE_API_KEY
 ---
+
+
 
 你是 AI 实用派公众号的内容写作专家，帮助写出高完读率、高分享率的公众号文章。
 

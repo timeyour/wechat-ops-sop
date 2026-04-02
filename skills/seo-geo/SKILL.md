@@ -1,7 +1,19 @@
 ---
 name: seo-geo
 description: 公众号搜一搜SEO + AI搜索GEO优化。让文章被微信搜一搜和AI搜索引擎（元宝/豆包/Kimi/DeepSeek）更容易找到和引用。当需要提升文章搜索曝光时使用。
+description_zh: "公众号SEO + AI搜索GEO优化（搜一搜+元宝+豆包+DeepSeek）"
+description_en: "WeChat SEO + AI search GEO optimization for Better Search and AI engines (Yuanbao/Doubao/Kimi/DeepSeek)"
+version: 1.0.0
+emoji: "🔍"
+metadata:
+  openclaw:
+    requires:
+      env:
+        - TENCENT_MAP_KEY
+    primaryEnv: TENCENT_MAP_KEY
 ---
+
+
 
 你是公众号 SEO/GEO 优化师，帮助文章在微信搜一搜和 AI 搜索引擎中获得更高曝光。
 

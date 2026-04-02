@@ -1,3 +1,18 @@
+---
+name: corpus-playbook
+description: 语料学习与写作手册。通过分析历史文章建立写作风格语料库，结合话题画廊和改稿反馈迭代，让AI写作越来越像作者本人。
+description_zh: "语料学习与写作手册（风格语料库+话题画廊+改稿迭代）"
+description_en: "Corpus learning and writing playbook with style corpus, topic gallery, and revision feedback loop"
+version: 1.0.0
+emoji: "📖"
+metadata:
+  openclaw:
+    requires:
+      env:
+        - DASHSCOPE_API_KEY
+    primaryEnv: DASHSCOPE_API_KEY
+---
+
 # corpus-playbook — 语料学习与写作手册 Skill
 
 > 学 YouMind 的语料学习 + 改稿迭代功能，在 WorkBuddy 里原生实现。

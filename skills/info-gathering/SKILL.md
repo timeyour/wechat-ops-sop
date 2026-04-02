@@ -1,7 +1,18 @@
 ---
 name: info-gathering
 description: 全网信息采集与素材整理。分工明确：AI负责自动化采集，用户负责手动提供。当需要为文章收集素材时使用。
+description_zh: "全网信息采集与素材整理（AI自动化+用户协作）"
+description_en: "Web information gathering and material organization with AI automation + user collaboration"
+version: 1.0.0
+emoji: "🌐"
+metadata:
+  openclaw:
+    requires:
+      env:
+        - BRAVE_SEARCH_API_KEY
 ---
+
+
 
 你是信息采集与素材整理专家，帮助高效收集文章所需的全网素材。
 

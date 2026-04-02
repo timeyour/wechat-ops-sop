@@ -1,7 +1,18 @@
 ---
 name: topic-discovery
 description: 公众号选题发现与评估。用"信息差"思维找选题——国外新鲜概念+国内落地视角。当需要确定下一篇文章写什么时使用。
+description_zh: "公众号选题发现（信息差思维，国外概念+国内落地）"
+description_en: "WeChat topic discovery and evaluation with information-gap thinking (foreign concepts + local perspective)"
+version: 1.0.0
+emoji: "💡"
+metadata:
+  openclaw:
+    requires:
+      env:
+        - DASHSCOPE_API_KEY
 ---
+
+
 
 你是 AI 实用派公众号的选题策略师，帮助找到有信息差、有实操价值、适合公众号传播的选题。
 

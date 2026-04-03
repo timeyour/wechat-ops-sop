@@ -46,7 +46,7 @@ clawdhub install wechat-seo-geo
 
 | 变量 | 用途 | 必填 |
 |------|------|------|
-| `DASHSCOPE_API_KEY` | 豆包模型（内容写作、排版、语料等核心功能） | **推荐配置** |
+| `DASHSCOPE_API_KEY` | 通义千问/通义万相（内容写作+排版+生图） | **推荐配置** |
 | `GEMINI_API_KEY` | 图片生成（可选，有则优先） | 可选 |
 | `WECHAT_APPID` / `WECHAT_SECRET` | 公众号发布 | 可选 |
 | `TENCENT_MAP_KEY` | SEO + GEO 优化 | 可选 |
@@ -92,19 +92,13 @@ git clone https://github.com/timeyour/wechat-ops-sop.git
 cd wechat-ops-sop
 ```
 
-### 2. 安装依赖（Python）
+### 2. 配置环境变量
 
-```bash
-pip install feedparser beautifulsoup4 readability-lxml pillow requests
-```
+复制 `.env.example`（从 [wechat-auto-push-lib](https://github.com/timeyour/wechat-auto-push-lib) 复制），填入需要的 API Key。
 
-### 3. 配置文件
+### 3. 开始运营
 
-参考 [wechat-auto-push-lib](https://github.com/timeyour/wechat-auto-push-lib) 中的 `config.example.py` 配置微信 API 凭证。
-
-### 4. 开始运营
-
-按 `SOP.md` 中的 Phase 0-8 顺序执行。
+按 [SOP.md](SOP.md) 中的 Phase 0-8 顺序执行各 Skill。
 
 ---
 

@@ -63,11 +63,9 @@
 
 **操作：**
 
-```bash
-python img_fallback.py cover "文章标题" --style tech
-```
+读取并执行 `skills/image-generation/SKILL.md`，按降级链生成封面和内文配图。
 
-自动走降级链：截图 → 🍌Gemini(nano_banana) → 豆包4.0 → 豆包4.5 → Unsplash → 输出prompt
+自动降级链：截图 → Gemini → 豆包4.0 → 豆包4.5 → 通义万相 → Unsplash
 
 **产出：**
 
@@ -89,9 +87,7 @@ python img_fallback.py cover "文章标题" --style tech
 
 **操作：**
 
-```bash
-python compliance_check.py article.md [--strict]
-```
+读取并执行 `skills/compliance-check/SKILL.md`，按 16 项检查清单逐项核对。
 
 **三档结果：**
 
@@ -111,10 +107,10 @@ python compliance_check.py article.md [--strict]
 
 **操作步骤：**
 
-1. **选主题**：`skills/theme-gallery/SKILL.md`（8个主题可选，`pie` 为科技/AI 默认）
-2. **WenYan 排版**：`node wenyan_render.mjs article.md out.html`
+1. **选主题**：读取 `skills/theme-gallery/SKILL.md`（8个主题可选，`pie` 为科技/AI 默认）
+2. **排版发布**：读取并执行 `skills/typesetting-publish/SKILL.md`
 3. **用户预览确认**：修改直到满意
-4. **推送草稿**：`python _push_draft_v2.py`
+4. **推送草稿**：由 `typesetting-publish` skill 完成后提示
 
 **发布时间：** 锁定 20:00（晚上8点）
 
@@ -122,9 +118,7 @@ python compliance_check.py article.md [--strict]
 
 ## Phase 6 — 录飞书
 
-```bash
-python feishu_tracker.py add
-```
+按飞书 SOP 记录本次发布信息：
 
 记录：标题 / 发布日期 / 选题类型 / 预估字数 / 封面类型 / 关键词 / 状态
 
@@ -152,9 +146,9 @@ python feishu_tracker.py add
 ## Phase 8 — 24h 复盘
 
 **执行前读：**
-- `skills/data-review/SKILL.md`
-- `skills/growth-review/SKILL.md`
-- `skills/cold-start/SKILL.md`
+- 读取 `skills/cold-start/SKILL.md`（冷启动效果）
+- 读取 `skills/data-review/SKILL.md`（48h 考核期指标）
+- 读取 `skills/growth-review/SKILL.md`（全局复盘）
 
 **核心指标：**
 

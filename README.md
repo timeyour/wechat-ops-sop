@@ -1,8 +1,16 @@
-# 公众号运营 SOP + Skills 体系
+# wechat-ops-sop
 
-> 从选题到复盘，AI Agent 驱动的半自动化公众号运营工具链。
+> 公众号内容工厂的方法层：AI Agent 驱动的选题→写稿→配图→合规→发布→复盘 SOP。
 
-**定位：AI 实用派** — 不追一手资讯，追第一手实操解读。
+> 执行层实现见 [wechat-auto-push-lib](https://github.com/timeyour/wechat-auto-push-lib)
+
+---
+
+## 3 分钟开始
+
+```bash
+git clone https://github.com/timeyour/wechat-ops-sop.git && cd wechat-ops-sop && .\install.ps1
+```
 
 ---
 

@@ -88,6 +88,10 @@ wechat-ops-sop/
 ├── install.sh                     ← Mac/Linux 一键安装脚本
 ├── PUBLISH.md                    ← Clawdhub 发布指南
 ├── .gitignore
+├── references/                    ← 运营经验库（SEO指南+文章产出+Session日志）
+│   ├── seo-geo/                  ← SEO + GEO 参考资料
+│   ├── articles/                 ← 本次实际产出文章 + 合规报告
+│   └── sessions/                 ← Session 操作日志
 └── skills/                       ← 13 个独立 Skill（Clawdhub 标准格式）
     ├── topic-discovery/          ← 选题发现
     ├── corpus-playbook/          ← 语料学习 + 30话题画廊

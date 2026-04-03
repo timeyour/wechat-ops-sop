@@ -57,8 +57,11 @@ test_*.py
 debug_*.py
 publish_*.py
 draft_*.py
-article_*.html
-article_*.md
+# references/ 目录需要追踪（经验记录）
+!references/
+# 根目录的 article 草稿才忽略
+/article_*.html
+/article_*.md
 
 # Jupyter
 .ipynb_checkpoints/

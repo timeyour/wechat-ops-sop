@@ -42,16 +42,39 @@ clawdhub install wechat-seo-geo
 
 ---
 
-## 环境变量（可选，首次使用配置）
 
-| 变量 | 用途 | 必填 |
-|------|------|------|
-| `DASHSCOPE_API_KEY` | 通义千问/通义万相（内容写作+排版+生图） | **推荐配置** |
-| `GEMINI_API_KEY` | 图片生成（可选，有则优先） | 可选 |
-| `WECHAT_APPID` / `WECHAT_SECRET` | 公众号发布 | 可选 |
-| `TENCENT_MAP_KEY` | SEO + GEO 优化 | 可选 |
-| `BRAVE_SEARCH_API_KEY` | 信息采集 | 可选 |
-| `GITHUB_TOKEN` | 运营复盘 | 可选 |
+## 环境变量：零配置即可开始
+
+**所有 Skill 都有降级链，不配置任何 Key 也能用。** 按需添加，Key 越多功能越强。
+
+### 只配 1 个 Key（推荐起步）
+
+```bash
+export DASHSCOPE_API_KEY="your_key"   # 阿里云通义千问/通义万相
+```
+
+凭一个 DASHSCOPE Key 可用：内容写作、配图生成、排版、语料学习、SEO/GEO、信息采集（豆包模型）。
+
+### 按需追加
+
+| 变量 | 什么时候需要 | 用途 |
+|------|------------|------|
+| `GEMINI_API_KEY` | 想用 Gemini 生图 | 图片生成（优先级更高） |
+| `WECHAT_APPID` / `WECHAT_SECRET` | 想自动推草稿箱 | 公众号发布 |
+| `TENCENT_MAP_KEY` | 想用地理位置 SEO | SEO + GEO 优化 |
+| `BRAVE_SEARCH_API_KEY` | 想用 Brave 搜索 | 信息采集（替代豆包搜索） |
+| `GITHUB_TOKEN` | 想抓 GitHub 数据 | 运营复盘 |
+
+### 无 Key 时的降级行为
+
+| Skill | 无 Key 降级到 |
+|-------|--------------|
+| 配图生成 | Unsplash 免费图库 / 纯文字 prompt |
+| 内容写作 | 本地推理（需本地模型） |
+| 信息采集 | 豆包搜索（DASHSCOPE Key） |
+| SEO/GEO | 手动查百度指数、腾讯位置服务 |
+| 运营复盘 | 手动登录后台导出数据 |
+
 
 ---
 

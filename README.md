@@ -84,7 +84,7 @@ export DASHSCOPE_API_KEY="your_key"   # 阿里云通义千问/通义万相
 wechat-ops-sop/
 ├── SOP.md                        ← Phase 0-8 完整操作流程
 ├── README.md                     ← 本文件
-├── install.ps1                   ← Windows 一键安装脚本
+├── install.ps1                    ← Windows 一键安装脚本
 ├── install.sh                     ← Mac/Linux 一键安装脚本
 ├── PUBLISH.md                    ← Clawdhub 发布指南
 ├── .gitignore

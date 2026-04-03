@@ -346,3 +346,25 @@ no cluttered background, no cartoon style
 2. 内文图文件路径列表
 3. 每张图的方法（screenshot/nano_banana/doubao_40/doubao_45/unsplash/prompt_out）
 4. 图片尺寸和大小
+
+---
+
+## 同类工具互链
+
+**通义万相 Wan 2.7 图像生成**（Wan-Video/Wan-skills）推荐作为备选方案：
+
+- GitHub：https://github.com/Wan-Video/Wan-skills
+- 模型：`wan2.7-image`（阿里云通义万相）
+- 同属 `DASHSCOPE_API_KEY` 生态，无需额外配置
+- 强项：文生图、图生图编辑、组图绘本（最多12张）
+- 适用场景：需要组图/故事绘本、或作为本 skill 降级链的备选节点
+
+**选择建议：**
+
+| 需求 | 推荐 |
+|------|------|
+| 公众号单张封面/内文图 | 本 skill（豆包4.5/Gemini） |
+| 中文文字渲染（封面大字） | 本 skill（豆包4.5） |
+| 写实/艺术创意风格 | 本 skill（Gemini） |
+| 多张关联组图/故事绘本 | Wan 2.7 |
+| 图生图编辑（换风格/融合） | Wan 2.7 |

@@ -1,9 +1,9 @@
 ---
 name: image-generation
-description: 公众号配图策略与生成。支持三大生图引擎：豆包4.0/4.5（文字渲染强）、谷歌Nano Banana Pro（真实感强）、Unsplash（实拍图）。使用 img_fallback.py 降级链自动处理。当需要为文章配图时使用。
-description_zh: "公众号配图生成与策略（Gemini+豆包+Unsplash降级链）"
-description_en: "WeChat article image generation with Gemini + Doubao + Unsplash fallback chain"
-version: 1.0.0
+description: 公众号配图策略与生成。8级降级链兜底（截图→Google Imagen→千问→火山引擎即梦→豆包4.5→豆包4.0→Unsplash→输出prompt）。含豆包五要素 prompt 构建器、10种封面风格模板、Gemini Nano Banana Pro 详细文档。当需要为文章配图时使用。
+description_zh: "公众号配图生成（8级降级链：截图→Imagen→千问→即梦→豆包4.5→豆包4.0→Unsplash→prompt）"
+description_en: "WeChat article image generation with 8-level fallback chain (screenshot→Imagen→Qianwen→Jimeng→Doubao 4.5→Doubao 4.0→Unsplash→prompt)"
+version: 1.1.0
 emoji: "🍌"
 metadata:
   openclaw:
@@ -11,11 +11,14 @@ metadata:
       env:
         - GEMINI_API_KEY
         - DASHSCOPE_API_KEY
+        - QIANWEN_API_KEY
+        - VOLC_ACCESS_KEY_ID
+        - VOLC_SECRET_ACCESS_KEY
+        - UNSPLASH_ACCESS_KEY
       bins:
         - python3
     primaryEnv: GEMINI_API_KEY
 ---
-
 
 
 你是公众号配图策略师，帮助为文章制作高质量的封面图和内文图。
@@ -24,46 +27,58 @@ metadata:
 
 **降级链优先，效果不好再降级。** 全自动配图，任意一环成功就继续，全部失败才输出 prompt。
 
-## 配图降级链（自动执行）
+## 8 级配图降级链（自动执行）
 
 ```
 generate_cover(title) / generate_content_image(prompt)
   │
-  ├─ 1. screenshot  ← 有 URL 时优先尝试
+  ├─ 1. screenshot   ← 有 URL 时优先尝试（微信文章跳过，必然失败）
   │   └─ crwl <url> → Playwright 降级
   │
-  ├─ 2. nano_banana  ← 谷歌 Gemini 3 Pro Image（🍌Nano Banana Pro）
-  │   └─ 写实/创意首选，1K快速，4K高质量
-  │   └─ 支持 --input-image 以图生图
+  ├─ 2. google_imagen← Google Imagen 4 (imagen-4.0-generate-001)
+  │   └─ 写实/创意首选，4K高质量，支持以图生图
   │
-  ├─ 3. doubao_40  ← doubao-seedream-4-0-250828
-  │   └─ 最低921600像素，5秒，~300KB（内文图默认先走这级）
+  ├─ 3. qianwen       ← 千问 wan2.7-image-pro / wanx-v1
+  │   └─ 异步轮询，同属 DASHSCOPE_API_KEY 生态
   │
-  ├─ 4. doubao_45  ← doubao-seedream-4-5-251128
-  │   └─ 最低3686400像素，17秒，~3MB（封面默认先走这级）
-  │   └─ 专有：optimize_prompt_options（standard高质量模式）
+  ├─ 4. volcengine   ← 火山引擎即梦 jimeng-ai-image-generation-v4.0
+  │   └─ HMAC-SHA256 签名，需 VOLC_ACCESS_KEY_ID / VOLC_SECRET_ACCESS_KEY
   │
-  ├─ 5. unsplash   ← 需 UNSPLASH_ACCESS_KEY
-  │   └─ 免费可商用图库搜索下载
+  ├─ 5. doubao_45    ← doubao-seedream-4-5-251128
+  │   └─ 封面质量优先，最低 3686400 像素，~3MB
+  │   └─ 专有：optimize_prompt_options（standard 高质量模式）
   │
-  └─ 6. prompt_out ← 全部失败时生成 prompt 文件
+  ├─ 6. doubao_40    ← doubao-seedream-4-0-250828
+  │   └─ 内文图省钱优先，最低 921600 像素，~300KB
+  │
+  ├─ 7. unsplash     ← Unsplash 免费可商用图库
+  │   └─ 需 UNSPLASH_ACCESS_KEY
+  │
+  └─ 8. prompt_out  ← 输出 prompt 文件，人工处理
 ```
 
-### 谷歌 Nano Banana Pro（Gemini 3 Pro Image）🍌
+**封面 vs 内文图策略：**
+- 封面图：先 4.5（质量优先），失败降 4.0 → 即梦 → 千问 → Imagen → Unsplash → prompt
+- 内文图：先 4.0（够用省钱），失败升 4.5 → 即梦 → 千问 → Imagen → Unsplash → prompt
+- 有 URL 时：优先截图（最真实），失败才降级到 AI 生图
 
-**适用场景：** 真实感强、创意风格多样、自然语言提示词驱动的图像。
-与豆包互补——豆包擅长中文文字渲染，Gemini 擅长写实摄影和艺术创意。
+## 凭证配置
 
-**API Key 配置：**
-```bash
-# 方式1：环境变量
-export GEMINI_API_KEY="your_gemini_api_key"
+| 提供商 | 变量名 | 说明 | 必需 |
+|--------|--------|------|------|
+| Google Imagen | `GEMINI_API_KEY` | Gemini API key | 推荐 |
+| 千问 | `QIANWEN_API_KEY` | DashScope API key（同豆包） | 推荐 |
+| 火山引擎即梦 | `VOLC_ACCESS_KEY_ID` / `VOLC_SECRET_ACCESS_KEY` | AK/SK（Base64 编码） | 可选 |
+| 豆包 | `ARK_API_KEY_ID` / `ARK_API_SECRET` | ARK Bearer Token | 推荐 |
+| Unsplash | `UNSPLASH_ACCESS_KEY` | 免费图库 key | 可选 |
 
-# 方式2：命令行传入
---api-key KEY
-```
+> **凭证存储最佳实践**：在 `~/.workbuddy/<project>/config.json` 中集中存储，从环境变量兜底读取。
 
-**使用方式（需在 AI绘图 skill 目录下运行）：**
+## Google Imagen 4（Gemini Nano Banana Pro）🍌
+
+**适用场景：** 真实感强、创意风格多样、自然语言提示词驱动。与豆包互补——豆包擅长中文文字渲染，Gemini 擅长写实摄影和艺术创意。
+
+**使用方式：**
 ```bash
 # 生图（默认1K，快速测试）
 uv run {skill_dir}/scripts/generate_image.py \
@@ -90,71 +105,20 @@ uv run {skill_dir}/scripts/generate_image.py \
 | 2K | ~2048px | 中等质量输出 |
 | 4K | ~4096px | 最终成品、打印质量 |
 
-**与豆包的选择建议：**
-| 需求 | 推荐 |
-|------|------|
-| 封面图带中文文字 | 豆包 4.5（文字渲染强） |
-| 写实摄影风格 | 谷歌 Gemini（Nano Banana） |
-| 艺术创意/插画 | 谷歌 Gemini |
-| 微信公号风格/中文内容 | 豆包 4.0/4.5 |
-| 草稿快速出图 | 谷歌 Gemini 1K |
-| 有参考图需要编辑 | 谷歌 Gemini --input-image |
-
-**使用方式：**
-```bash
-# 封面（默认4.5优先，质量优先）
-python img_fallback.py cover "Claude Code 实战指南" --style tech
-
-# 封面换风格（10种风格可选）
-python img_fallback.py cover "Claude Code 实战指南" --style cyberpunk
-python img_fallback.py cover "AI Agent 安全手册" --style infographic
-python img_fallback.py cover "古风小说推荐" --style chinese
-
-# 内文图（默认4.0优先，省钱）
-python img_fallback.py image "GitHub仓库截图" --url https://github.com/xxx
-python img_fallback.py image "深蓝背景中的AI芯片特写" --size 1664x936
-
-# 批量
-python img_fallback.py batch --tasks tasks.json
-```
-
-**Python 调用：**
-```python
-from img_fallback import generate_cover, generate_content_image, build_prompt
-
-# 封面
-r = generate_cover("Claude Code 泄露复盘", style="tech")
-# r = {"success": True, "method": "doubao_45", "path": "..."}
-
-# 内文图
-r = generate_content_image("GitHub安全架构示意图", url="https://github.com/...", size="1664x936")
-
-# 手动构建 prompt（五要素公式）
-prompt = build_prompt(
-    subject="深蓝色背景中的发光AI芯片特写",
-    style="tech",
-    env="科技实验室，暗室环境",
-    lighting="蓝色氖气灯光",
-    composition="居中构图",
-    color="深蓝到紫色渐变",
-    quality="4K高清"
-)
-```
-
 ## 封面图（1张）
 
-- **尺寸**：900×383（微信标准），生成1664×710后 Pillow 裁切
+- **尺寸**：900×383（微信标准），生成 1664×710 后 Pillow 裁切
 - **生成方式**：降级链自动处理，优先 AI 生图
 - **风格**：10种可选
 - **文字占比**：<30%，主标题用双引号 `"标题"` 显式标注（豆包文字渲染规则）
-- **模型**：默认4.5优先（封面质量重要）
+- **模型**：默认 4.5 优先（封面质量重要）
 
 ## 内文图（2-3张）
 
 - **优先级**：截图（URL优先） > AI生图
 - **截图来源**：有 URL 时自动截图，crwl → Playwright 降级
 - **AI生图尺寸**：1664×936（横图）或 936×1664（竖图）
-- **模型**：默认4.0优先（省钱省时）
+- **模型**：默认 4.0 优先（省钱省时）
 
 ## 配图时机
 
@@ -307,23 +271,69 @@ no cluttered background, no cartoon style
 
 ---
 
-## GPT-4o Prompt模板库
+## CLI 用法
 
-来源：songguoxs/gpt4o-image-prompts（120个精选）
+```bash
+# 封面（默认4.5优先，质量优先）
+python img_fallback.py cover "Claude Code 实战指南" --style tech
 
-**10个风格分类：**
-1. 奇趣3D玩具 - Chibi-style 3D vinyl toy
-2. 品牌广告 - hyper-realistic 3D product shot
-3. 动漫机甲 - Japanese mecha design blueprint
-4. 像素复古 - Monochrome LCD pixel art
-5. 发光霓虹 - Neon glow icon, glowing line art
-6. 超写实场景 - Hyper-realistic 3D scene
-7. 肖像棚拍 - Professional studio portrait
-8. 透明产品 - Transparent product shot
-9. 美食摄影 - Gourmet food photography
-10. 数据可视化 - Data visualization dashboard
+# 封面换风格（10种风格可选）
+python img_fallback.py cover "Claude Code 实战指南" --style cyberpunk
+python img_fallback.py cover "AI Agent 安全手册" --style infographic
+python img_fallback.py cover "古风小说推荐" --style chinese
 
-**快速公式：** `[主体] + [风格关键词] + [细节] + [8K渲染]`
+# 内文图（默认4.0优先，省钱）
+python img_fallback.py image "GitHub仓库截图" --url https://github.com/xxx
+python img_fallback.py image "深蓝背景中的AI芯片特写" --size 1664x936
+
+# 批量生成
+python img_fallback.py batch --tasks tasks.json --delay 3.0
+```
+
+## Python API 用法
+
+```python
+from img_fallback import generate_cover, generate_content_image, fallback_chain
+
+# 生成封面（自动降级）
+r = generate_cover(title="Claude Code 泄露复盘", style="tech")
+# r = {"success": True, "method": "doubao_45", "path": "..."}
+
+# 生成内文图
+r = generate_content_image(prompt="GitHub安全架构示意图", url="https://github.com/...", size="1664x936")
+
+# 完整降级链（控制所有参数）
+r = fallback_chain(
+    purpose="article_cover",
+    prompt="深蓝背景中的AI芯片特写",
+    url=None,
+    size="1664x710",
+    style="tech",
+    use_45=True,
+)
+```
+
+## 批量任务 JSON 格式
+
+```json
+[
+  {
+    "purpose": "cover",
+    "prompt": "深蓝背景中的AI芯片特写",
+    "style": "tech",
+    "size": "1664x710",
+    "out_name": "cover_article1",
+    "use_45": true
+  },
+  {
+    "purpose": "content_img1",
+    "prompt": "赛博朋克城市夜景",
+    "size": "1664x936",
+    "out_name": "content_cyberpunk",
+    "use_45": false
+  }
+]
+```
 
 ---
 
@@ -331,7 +341,7 @@ no cluttered background, no cartoon style
 
 - 封面图用 AI 生成，别用截图（截图不好裁）
 - 内文图有 URL 时优先截图（更可信）
-- 有 URL 但截图失败 → 自动降级到 Gemini（nano_banana）
+- 有 URL 但截图失败 → 自动降级到 AI 生图
 - 不要在图中放太多文字（微信压缩后看不清）
 - 4.5 模型生成慢3倍但质量高，封面推荐用 4.5
 - 内文图用 4.0 够用，省钱省时
@@ -344,14 +354,14 @@ no cluttered background, no cartoon style
 
 1. 封面图文件路径
 2. 内文图文件路径列表
-3. 每张图的方法（screenshot/nano_banana/doubao_40/doubao_45/unsplash/prompt_out）
+3. 每张图的方法（screenshot/google_imagen/qianwen/volcengine/doubao_45/doubao_40/unsplash/prompt_out）
 4. 图片尺寸和大小
 
 ---
 
 ## 同类工具互链
 
-**通义万相 Wan 2.7 图像生成**（Wan-Video/Wan-skills）推荐作为备选方案：
+**通义万相 Wan 2.7 图像生成**（Wan-skills）推荐作为备选方案：
 
 - GitHub：https://github.com/Wan-Video/Wan-skills
 - 模型：`wan2.7-image`（阿里云通义万相）

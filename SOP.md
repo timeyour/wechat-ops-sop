@@ -4,6 +4,25 @@
 
 ---
 
+## ⚠️ 前置依赖
+
+本 SOP 的 Phase 3-6 调用的脚本由 [wechat-auto-push-lib](https://github.com/timeyour/wechat-auto-push-lib) 提供：
+
+```bash
+git clone https://github.com/timeyour/wechat-auto-push-lib.git
+cd wechat-auto-push-lib
+pip install -r requirements.txt
+cp .env.example .env            # 编辑填入 AppID / AppSecret
+
+# 可选：安装 wenyan-cli 排版引擎
+npm install -g @wenyan/cli
+```
+
+> 所需脚本：`img_fallback.py`、`compliance_check.py`、`_push_draft_v2.py`、`_feishu_add_record.py` 均在 `wechat-auto-push-lib/` 目录下。
+> 使用 SOP 前确保执行层仓库已就位。
+
+---
+
 ## Phase 0 — 选题
 
 **执行前读：** `skills/topic-discovery/SKILL.md`
@@ -24,7 +43,7 @@
 
 **执行前读：**
 - `skills/content-writing/SKILL.md`
-- `skills/seo-geo/SKILL.md`
+- `skills/seo-geo/SKILL.md`（ERE框架+v1.1）
 
 **要求：**
 
@@ -59,13 +78,16 @@
 
 ## Phase 3 — 配图
 
-**执行前读：** `skills/image-generation/SKILL.md`
+**执行前读：** `skills/image-generation/SKILL.md`（8级降级链 v1.1）
 
 **操作：**
 
-读取并执行 `skills/image-generation/SKILL.md`，按降级链生成封面和内文配图。
+```bash
+# img_fallback.py 来自 wechat-auto-push-lib/
+cd ../wechat-auto-push-lib && python img_fallback.py cover "文章标题" --style tech
+```
 
-自动降级链：截图 → Gemini → 豆包4.0 → 豆包4.5 → 通义万相 → Unsplash
+自动走 8 级降级链：截图 → Google Imagen → 千问 → 火山引擎即梦 → 豆包4.5 → 豆包4.0 → Unsplash → 输出prompt
 
 **产出：**
 
@@ -87,7 +109,10 @@
 
 **操作：**
 
-读取并执行 `skills/compliance-check/SKILL.md`，按 16 项检查清单逐项核对。
+```bash
+# compliance_check.py 来自 wechat-auto-push-lib/
+cd ../wechat-auto-push-lib && python compliance_check.py article.md [--strict]
+```
 
 **三档结果：**
 
@@ -107,10 +132,10 @@
 
 **操作步骤：**
 
-1. **选主题**：读取 `skills/theme-gallery/SKILL.md`（8个主题可选，`pie` 为科技/AI 默认）
-2. **排版发布**：读取并执行 `skills/typesetting-publish/SKILL.md`
+1. **选主题**：`skills/theme-gallery/SKILL.md`（8个主题可选，`pie` 为科技/AI 默认）
+2. **WenYan 排版**：`node wenyan_render.mjs article.md out.html`
 3. **用户预览确认**：修改直到满意
-4. **推送草稿**：由 `typesetting-publish` skill 完成后提示
+4. **推送草稿**：`cd ../wechat-auto-push-lib && python _push_draft_v2.py`
 
 **发布时间：** 锁定 20:00（晚上8点）
 
@@ -118,7 +143,10 @@
 
 ## Phase 6 — 录飞书
 
-按飞书 SOP 记录本次发布信息：
+```bash
+# _feishu_add_record.py 来自 wechat-auto-push-lib/
+cd ../wechat-auto-push-lib && python _feishu_add_record.py
+```
 
 记录：标题 / 发布日期 / 选题类型 / 预估字数 / 封面类型 / 关键词 / 状态
 
@@ -146,9 +174,9 @@
 ## Phase 8 — 24h 复盘
 
 **执行前读：**
-- 读取 `skills/cold-start/SKILL.md`（冷启动效果）
-- 读取 `skills/data-review/SKILL.md`（48h 考核期指标）
-- 读取 `skills/growth-review/SKILL.md`（全局复盘）
+- `skills/data-review/SKILL.md`
+- `skills/growth-review/SKILL.md`
+- `skills/cold-start/SKILL.md`
 
 **核心指标：**
 
@@ -172,7 +200,8 @@
 |-------|-------|------|
 | 0 选题 | topic-discovery | `skills/topic-discovery/SKILL.md` |
 | 0 语料 | corpus-playbook | `skills/corpus-playbook/SKILL.md` |
-| 信息采集 | info-gathering | `skills/info-gathering/SKILL.md` |
+| 信息采集 | info-gathering | `skills/info-gathering/SKILL.md`（含知识管线+三路分发） |
+| 信息采集（精选） | saymore-fetch | `skills/saymore-fetch/SKILL.md` |
 | 1 写稿 | content-writing | `skills/content-writing/SKILL.md` |
 | 内容优化 | 内容优化 skill | （多代理辩论工作流） |
 | 3 配图 | image-generation | `skills/image-generation/SKILL.md` |
@@ -183,4 +212,4 @@
 | 8 复盘 | data-review | `skills/data-review/SKILL.md` |
 | 全局复盘 | growth-review | `skills/growth-review/SKILL.md` |
 | 分发 | cross-platform | `skills/cross-platform/SKILL.md` |
-| SEO/GEO | seo-geo | `skills/seo-geo/SKILL.md` |
+| SEO/GEO | seo-geo | `skills/seo-geo/SKILL.md`（ERE框架+十步法+v1.1） |

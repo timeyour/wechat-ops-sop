@@ -31,13 +31,13 @@ clawdhub --version
 
 ---
 
-## 一键发布所有 13 个 Skill
+## 一键发布所有 14 个 Skill
 
 在仓库根目录运行以下命令：
 
 ```bash
 # ============================================================
-# 一键发布全部 13 个 skill 到 Clawdhub
+# 一键发布全部 14 个 skill 到 Clawdhub（v1.1 升级）
 # ============================================================
 
 SKILLS=(
@@ -50,6 +50,7 @@ SKILLS=(
   "corpus-playbook:wechat-corpus:语料学习写作手册"
   "seo-geo:wechat-seo-geo:搜一搜SEO优化"
   "info-gathering:wechat-info-gathering:全网信息采集"
+  "saymore-fetch:wechat-saymore-fetch:Saymore精选内容抓取"
   "data-review:wechat-data-review:文章数据复盘"
   "topic-discovery:wechat-topic-discovery:选题发现"
   "theme-gallery:wechat-theme-gallery:WenYan主题画廊"
@@ -72,7 +73,7 @@ done
 
 echo ""
 echo "============================================"
-echo " 全部 13 个 skill 发布完成！"
+echo " 全部 14 个 skill 发布完成！"
 echo "============================================"
 ```
 
@@ -100,7 +101,7 @@ clawdhub install wechat-seo-geo
 
 | Skill Slug | 环境变量 | CLI 工具 |
 |-----------|---------|---------|
-| wechat-image-gen | `GEMINI_API_KEY`, `DASHSCOPE_API_KEY` | python3 |
+| wechat-image-gen | `GEMINI_API_KEY`, `DASHSCOPE_API_KEY`, `QIANWEN_API_KEY`, `VOLC_*`, `UNSPLASH_*` | python3 |
 | wechat-content-writing | `DASHSCOPE_API_KEY` | — |
 | wechat-typesetting | `WECHAT_APPID`, `WECHAT_SECRET`, `DASHSCOPE_API_KEY` | — |
 | wechat-compliance | — | — |
@@ -109,6 +110,7 @@ clawdhub install wechat-seo-geo
 | wechat-corpus | `DASHSCOPE_API_KEY` | — |
 | wechat-seo-geo | `TENCENT_MAP_KEY` | — |
 | wechat-info-gathering | `BRAVE_SEARCH_API_KEY`（可选） | — |
+| wechat-saymore-fetch | `SAYMORE_API_KEY`（手动配置） | python3 |
 | wechat-data-review | — | python3 |
 | wechat-topic-discovery | `DASHSCOPE_API_KEY`（可选） | — |
 | wechat-theme-gallery | — | — |

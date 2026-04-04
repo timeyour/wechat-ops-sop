@@ -1,9 +1,9 @@
 ---
 name: info-gathering
-description: 全网信息采集与素材整理。分工明确：AI负责自动化采集，用户负责手动提供。当需要为文章收集素材时使用。
-description_zh: "全网信息采集与素材整理（AI自动化+用户协作）"
+description: 全网信息采集与素材整理。分工明确：AI负责自动化采集，用户负责手动提供。内置知识管线（raw→compile→wiki）+ 三路分发（Obsidian/IMA/乐享）+ YouMind 深度整理入口。当需要为文章收集素材时使用。
+description_zh: "全网信息采集+知识管线+分发（raw→wiki→Obsidian/IMA/乐享，YouMind可选）"
 description_en: "Web information gathering and material organization with AI automation + user collaboration"
-version: 1.0.0
+version: 1.1.0
 emoji: "🌐"
 metadata:
   openclaw:
@@ -103,9 +103,54 @@ metadata:
 - 忘记记录来源（写文章时找不到）
 - 花太多时间在采集上（写作时间不够）
 
+## Step 5: 知识管线加工（可选）
+
+> 采集完的素材进入个人知识库，有两条路可选。
+
+### 方案 A：快速沉淀（推荐日常使用）
+
+```
+raw/（原始素材） → LLM compile → wiki/（摘要+链接+专题）
+```
+
+**操作：**
+1. **raw/归档**：将采集的 URL + 摘要存入 `raw/` 目录，命名格式 `{日期}_{主题}.md`
+2. **LLM compile**：对 `raw/` 内容做摘要 + 提取关键引述 + 打标签
+3. **wiki/整理**：按专题归档到 `wiki/` 目录
+
+### 方案 B：YouMind 深度整理（适合重要选题）
+
+```
+百度搜索 → YouMind → 知识提取/整理 → 存入 wiki/
+```
+
+**操作：**
+1. 百度搜索相关关键词，抓取高权重页面
+2. 将关键内容粘贴到 YouMind（手动）
+3. YouMind 自动做知识提取、关系图谱
+4. 导出整理后的笔记存入 `wiki/`
+
+> YouMind 是手动工具，适合深度研究场景；方案 A 更适合快速沉淀。
+
+## Step 6: 知识库分发（可选）
+
+> wiki/ 整理完毕后，按需分发到以下知识库。
+
+| 目标 | 用途 | 同步方式 |
+|------|------|----------|
+| **Obsidian**（本地） | 个人深度研究，第二大脑 | 手动复制 / Obsidian Sync |
+| **IMA**（个人云库） | 跨设备随时查阅 | 分享链接导入 |
+| **乐享**（团队库） | 团队知识共享，协作沉淀 | 上传 / 分享 |
+
+**分发优先级：**
+- 普通素材：只存 Obsidian
+- 有价值的专题：Obsidian + IMA
+- 团队相关：加乐享
+
 ## 输出
 
 1. 结构化素材清单（分类整理）
 2. 来源可信度标注
 3. 推荐引用的信息点
 4. 信息缺口提示（还需要补充什么）
+5. [可选] wiki/ 知识整理 + 分发记录

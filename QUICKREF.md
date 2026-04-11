@@ -69,6 +69,6 @@ node wenyan_render.mjs article.md out.html
 
 # 3. 用户预览确认后
 
-# 4. 推送草稿
-python _push_draft_v2.py
+# 4. 推送草稿（WenYan路径）
+python wechat_api/publisher.py --html out.html
 ```

@@ -18,7 +18,7 @@ cp .env.example .env            # 编辑填入 AppID / AppSecret
 npm install -g @wenyan/cli
 ```
 
-> 所需脚本：`img_fallback.py`、`compliance_check.py`、`_push_draft_v2.py`、`_feishu_add_record.py` 均在 `wechat-auto-push-lib/` 目录下。
+> 所需脚本：`img_fallback.py`、`compliance_check.py`、`wechat_api/publisher.py`、`_feishu_add_record.py` 均在 `wechat-auto-push-lib/` 目录下。
 > 使用 SOP 前确保执行层仓库已就位。
 
 ---
@@ -87,7 +87,7 @@ npm install -g @wenyan/cli
 cd ../wechat-auto-push-lib && python img_fallback.py cover "文章标题" --style tech
 ```
 
-自动走 8 级降级链：截图 → Google Imagen → 千问 → 火山引擎即梦 → 豆包4.5 → 豆包4.0 → Unsplash → 输出prompt
+自动走 5 级降级链：截图(Crawl4ai) → 豆包4.0 → 豆包4.5 → Unsplash图库 → 输出prompt
 
 **产出：**
 
@@ -133,9 +133,12 @@ cd ../wechat-auto-push-lib && python compliance_check.py article.md [--strict]
 **操作步骤：**
 
 1. **选主题**：`skills/theme-gallery/SKILL.md`（8个主题可选，`pie` 为科技/AI 默认）
-2. **WenYan 排版**：`node wenyan_render.mjs article.md out.html`
+2. **WenYan 排版**：`cd ../wechat-auto-push-lib && node wenyan_render.mjs article.md out.html`
 3. **用户预览确认**：修改直到满意
-4. **推送草稿**：`cd ../wechat-auto-push-lib && python _push_draft_v2.py`
+4. **推送草稿**：
+   - WenYan 路径（原创/手动编辑文章）：`cd ../wechat-auto-push-lib && python wechat_api/publisher.py --html out.html`
+   - RSS 路径（转载/翻译文章）：`cd ../wechat-auto-push-lib && python main.py`
+   - 两者最终都进入 mp.weixin.qq.com 草稿箱，需手动点「群发」
 
 **发布时间：** 锁定 20:00（晚上8点）
 

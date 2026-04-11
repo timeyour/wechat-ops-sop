@@ -62,7 +62,7 @@ cd ../wechat-auto-push-lib
 # 指定主题渲染
 node wenyan_render.mjs article.md lapis out.html
 
-# 读配置文件中的主题渲染（无需传theme参数）
+# 读配置文件中的主题渲染（无需传 theme 参数）
 node wenyan_render.mjs article.md out.html
 ```
 

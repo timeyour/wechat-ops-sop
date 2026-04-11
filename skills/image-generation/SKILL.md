@@ -1,8 +1,8 @@
 ---
 name: image-generation
-description: 公众号配图策略与生成。8级降级链兜底（截图→Google Imagen→千问→火山引擎即梦→豆包4.5→豆包4.0→Unsplash→输出prompt）。含豆包五要素 prompt 构建器、10种封面风格模板、Gemini Nano Banana Pro 详细文档。当需要为文章配图时使用。
-description_zh: "公众号配图生成（8级降级链：截图→Imagen→千问→即梦→豆包4.5→豆包4.0→Unsplash→prompt）"
-description_en: "WeChat article image generation with 8-level fallback chain (screenshot→Imagen→Qianwen→Jimeng→Doubao 4.5→Doubao 4.0→Unsplash→prompt)"
+description: 公众号配图策略与生成。5级降级链兜底（截图→豆包4.0→豆包4.5→Unsplash→输出prompt）。含豆包五要素 prompt 构建器、10种封面风格模板、Gemini Nano Banana Pro 详细文档。当需要为文章配图时使用。
+description_zh: "公众号配图生成（5级降级链：截图→豆包4.0→豆包4.5→Unsplash→prompt）"
+description_en: "WeChat article image generation with 5-level fallback chain (screenshot→Doubao4.0→Doubao4.5→Unsplash→prompt)"
 version: 1.1.0
 emoji: "🍌"
 metadata:

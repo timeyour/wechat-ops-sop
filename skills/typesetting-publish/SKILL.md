@@ -50,13 +50,13 @@ python theme_config.py set <theme-id>
 
 **自动读配置（推荐）：**
 ```bash
-node wenyan_render.mjs article.md out.html
+cd ../wechat-auto-push-lib && node wenyan_render.mjs article.md out.html
 ```
 → 自动读取 `.theme_selected.json` 中的主题，无需手动指定。
 
 **手动指定主题：**
 ```bash
-node wenyan_render.mjs article.md lapis out.html
+cd ../wechat-auto-push-lib && node wenyan_render.mjs article.md lapis out.html
 ```
 
 渲染产物：
@@ -100,16 +100,17 @@ python img_fallback.py cover "文章标题" --style tech
 ### Step 5: 推送草稿
 
 ```bash
-python _push_draft_v2.py
+cd ../wechat-auto-push-lib
+python wechat_api/publisher.py --html out.html
 ```
-自动完成：排版→上传封面→上传内文图→替换URL→创建草稿。
+自动完成：上传封面→上传内文图→替换URL→创建草稿。
 
 ---
 
 ### Step 6: 飞书追踪（自动）
 
 ```bash
-python feishu_tracker.py add
+cd ../wechat-auto-push-lib && python _feishu_add_record.py
 ```
 写入多维表格：标题/日期/类型/字数/状态。
 

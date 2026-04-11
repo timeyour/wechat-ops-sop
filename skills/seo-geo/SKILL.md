@@ -1,6 +1,6 @@
 ---
 name: seo-geo
-description: 公众号搜一搜SEO + AI搜索GEO优化。完整 ERE 框架 + 十步法 + 七阶段工作流，让文章被微信搜一搜和AI搜索引擎（元宝/豆包/Kimi/DeepSeek）更容易找到和引用。当需要提升文章搜索曝光时使用。
+description: 公众号搜一搜SEO + AI搜索GEO优化。完整 ERE 框架 + 七阶段工作流，让文章被微信搜一搜和AI搜索引擎（元宝/豆包/Kimi/DeepSeek）更容易找到和引用。当需要提升文章搜索曝光时使用。
 description_zh: "公众号SEO + AI搜索GEO优化（ERE框架+搜一搜+元宝+豆包+DeepSeek）"
 description_en: "WeChat SEO + AI search GEO optimization with ERE framework (Yuanbao/Doubao/Kimi/DeepSeek)"
 version: 1.1.0

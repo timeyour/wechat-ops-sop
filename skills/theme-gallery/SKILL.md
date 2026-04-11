@@ -57,6 +57,8 @@ python theme_config.py reset
 ### 场景3：渲染预览（任意主题）
 
 ```bash
+cd ../wechat-auto-push-lib
+
 # 指定主题渲染
 node wenyan_render.mjs article.md lapis out.html
 

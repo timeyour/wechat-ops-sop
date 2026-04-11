@@ -73,7 +73,7 @@ wechat-ops-sop/
     ├── saymore-fetch/            ← Saymore 精选内容抓取
     ├── content-writing/           ← 洋葱结构写作
     ├── seo-geo/                  ← SEO + GEO 优化（ERE框架+v1.1）
-    ├── image-generation/          ← 8级配图降级链（v1.1）
+    ├── image-generation/          ← 5级配图降级链（v1.1）
     ├── theme-gallery/             ← 8个排版主题
     ├── typesetting-publish/       ← 排版 → 发布全流程
     ├── compliance-check/           ← 16项合规审核
@@ -140,7 +140,7 @@ pip install feedparser beautifulsoup4 readability-lxml pillow requests
 | **saymore-fetch** | Saymore 精选内容（GitHub Repos / AI Builders / Polymarket） |
 | **content-writing** | 洋葱结构，完读率优先 |
 | **seo-geo** | 搜一搜优化 + AI搜索优化（ERE框架+v1.1） |
-| **image-generation** | 8级降级链（截图→Imagen→千问→即梦→豆包4.5→豆包4.0→Unsplash+v1.1） |
+| **image-generation** | 5级降级链（截图→豆包4.0→豆包4.5→Unsplash→prompt+v1.1） |
 | **theme-gallery** | 8主题画廊，点选切换 |
 | **typesetting-publish** | WenYan排版→合规→推草稿→冷启动 |
 | **compliance-check** | 16项检查（红线+必须+优化） |

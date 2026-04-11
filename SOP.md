@@ -19,7 +19,7 @@ pip install -r requirements.txt
 cp .env.example .env            # 编辑填入 AppID / AppSecret
 
 # 可选：安装 wenyan-cli 排版引擎
-npm install -g @wenyan/cli
+npm install -g @wenyan-md/cli
 ```
 
 > 所需脚本：`img_fallback.py`、`compliance_check.py`、`wechat_api/publisher.py`、`_feishu_add_record.py` 均在 `wechat-auto-push-lib/` 目录下。

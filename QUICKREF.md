@@ -12,7 +12,7 @@ git clone https://github.com/timeyour/wechat-auto-push-lib.git
 cd wechat-auto-push-lib
 pip install -r requirements.txt
 cp .env.example .env          # 填入 WECHAT_APPID / WECHAT_APPSECRET
-npm install -g @wenyan/cli    # 可选，排版用
+npm install -g @wenyan-md/cli    # 可选，排版用
 
 # 安装 Skills（Get笔记等）
 # https://clawhub.ai/iswalle/getnote

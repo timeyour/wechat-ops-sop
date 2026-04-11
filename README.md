@@ -4,6 +4,8 @@
 
 > 执行层实现见 [wechat-auto-push-lib](https://github.com/timeyour/wechat-auto-push-lib)
 
+> 这个仓库本身不负责 RSS 抓取、图片上传或创建公众号草稿；它负责把整套运营动作拆成可复用的 SOP 和 Skills。
+
 ---
 
 ## 3 分钟开始
@@ -15,6 +17,8 @@ git clone https://github.com/timeyour/wechat-ops-sop.git && cd wechat-ops-sop &&
 ---
 
 ## 一键安装（两种方式）
+
+安装脚本默认复制到 `~/.workbuddy/skills`，适配 WorkBuddy / 小龙虾兼容目录。
 
 ### 方式 A：GitHub 懒人包（无需账号，推荐）
 
@@ -94,19 +98,13 @@ git clone https://github.com/timeyour/wechat-ops-sop.git
 cd wechat-ops-sop
 ```
 
-### 2. 安装依赖（Python）
-
-```bash
-pip install feedparser beautifulsoup4 readability-lxml pillow requests
-```
-
-### 3. 配置文件
-
-参考 [wechat-auto-push-lib](https://github.com/timeyour/wechat-auto-push-lib) 中的 `config.example.py` 配置微信 API 凭证。
-
-### 4. 开始运营
+### 2. 开始运营
 
 按 `SOP.md` 中的 Phase 0-8 顺序执行。
+
+### 3. 需要自动抓取 / 自动推草稿时
+
+再去看执行层仓库：[wechat-auto-push-lib](https://github.com/timeyour/wechat-auto-push-lib)
 
 ---
 

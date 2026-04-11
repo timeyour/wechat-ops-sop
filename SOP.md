@@ -48,6 +48,23 @@ npm install -g @wenyan-md/cli
 > 输出：Markdown 要点/大纲 → **直接进入 Phase 1 写稿**
 > 三种入口（选题写稿 / 素材转公众号 / 自选题）最终都汇入 Phase 1，共用执行层脚本。
 
+### 4. 知识沉淀层（可选，不阻塞首次上手）
+
+> 用途：把采集过的素材、专题总结、复盘结果沉淀到知识库，方便后续复用。
+
+| 目标 | 用途 | 是否首次必需 |
+|------|------|--------------|
+| **Obsidian** | 个人研究、长线专题、第二大脑 | 否 |
+| **IMA** | 个人云端笔记，跨设备查阅 | 否 |
+| **乐享** | 团队共享、协作沉淀 | 否 |
+
+**建议：**
+- 第一次跑 SOP：先跳过这层
+- 已开始稳定产出：再把高价值专题同步进去
+- 有团队协作需求：再加乐享
+
+> 这层默认挂在 `info-gathering` 之后，本质是“沉淀经验”，不是“阻塞发布”。
+
 ---
 
 ## Phase 0 — 选题
@@ -230,7 +247,7 @@ cd ../wechat-auto-push-lib && python _feishu_add_record.py
 |-------|-------|------|
 | 0 选题 | topic-discovery | `skills/topic-discovery/SKILL.md` |
 | 0 语料 | corpus-playbook | `skills/corpus-playbook/SKILL.md` |
-| 信息采集 | info-gathering | `skills/info-gathering/SKILL.md`（含知识管线+三路分发） |
+| 信息采集 | info-gathering | `skills/info-gathering/SKILL.md`（含知识管线 + Obsidian / IMA / 乐享 三路分发） |
 | 信息采集（精选） | saymore-fetch | `skills/saymore-fetch/SKILL.md` |
 | 1 写稿 | content-writing | `skills/content-writing/SKILL.md` |
 | 内容优化 | 内容优化 skill | （多代理辩论工作流） |

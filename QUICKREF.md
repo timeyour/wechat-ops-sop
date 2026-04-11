@@ -22,6 +22,8 @@ npm install -g @wenyan-md/cli    # 可选，排版用
 cd .. && git clone https://github.com/timeyour/wechat-ops-sop.git
 ```
 
+> Obsidian / IMA / 乐享 属于可选知识沉淀层，不是首次执行前置条件。
+
 ---
 
 ## Phase 0 → 8 速查
@@ -37,6 +39,18 @@ cd .. && git clone https://github.com/timeyour/wechat-ops-sop.git
 | **6** | 飞书录入 | — | `cd ../wechat-auto-push-lib && python _feishu_add_record.py` | 记录已存 |
 | **7** | 冷启动 | `skills/cold-start/SKILL.md` | 手动：转发群 + 小号互动 | 互动信号 |
 | **8** | 24h复盘 | `skills/data-review/SKILL.md`<br>`skills/growth-review/SKILL.md` | — | 复盘报告 |
+
+---
+
+## 可选知识沉淀层
+
+| 目标 | 适合什么场景 |
+|------|--------------|
+| **Obsidian** | 个人长期研究、专题积累 |
+| **IMA** | 个人云端随时查 |
+| **乐享** | 团队共享和协作 |
+
+默认挂在信息采集之后。想先把文章跑通，可以先完全跳过。
 
 ---
 

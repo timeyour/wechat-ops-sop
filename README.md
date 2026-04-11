@@ -108,12 +108,27 @@ cd wechat-ops-sop
 
 ---
 
+## 分层结构
+
+这套体系建议按三层理解：
+
+| 层 | 作用 | 是否首次必需 |
+|----|------|--------------|
+| **方法层** | `wechat-ops-sop`：SOP、Skill、检查项、复盘框架 | **是** |
+| **执行层** | `wechat-auto-push-lib`：抓取、清洗、排版、推草稿 | 需要自动化时再接 |
+| **知识沉淀层** | Obsidian / IMA / 乐享：把素材、专题和复盘沉淀到知识库 | **可选** |
+
+> 也就是说，第一次上手只需要先理解方法层；需要自动抓取/推草稿时再接执行层；Obsidian / IMA / 乐享 是后续增强，不应该阻塞第一次使用。
+
+---
+
 ## 核心工作流
 
 ```
 选题 (Phase 0)
   └→ 语料学习 (corpus-playbook)
        └→ 信息采集 (info-gathering)
+            ├→ [可选] 知识沉淀（Obsidian / IMA / 乐享）
             └→ 写稿 (Phase 1) → 内容优化 (Phase 2)
                  └→ 配图 (Phase 3)
                       └→ 合规检查 (Phase 4)
@@ -156,6 +171,22 @@ cd wechat-ops-sop
 完整技术实现（RSS抓取、微信API、wenyan排版、封面生成）见另一仓库：
 
 **[wechat-auto-push-lib](https://github.com/timeyour/wechat-auto-push-lib)**
+
+## 可选知识层
+
+`info-gathering` 这一步已经预留了三路分发：
+
+- **Obsidian**：适合个人长期研究和第二大脑
+- **IMA**：适合个人云端随时查阅
+- **乐享**：适合团队共享和协作沉淀
+
+建议用法：
+
+- 只想先把文章跑起来：先不接这层
+- 想积累专题素材：接 Obsidian / IMA
+- 想让团队一起复用：再加乐享
+
+这层默认是增强项，不是首次安装前置条件。
 
 ---
 

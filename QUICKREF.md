@@ -14,6 +14,10 @@ pip install -r requirements.txt
 cp .env.example .env          # 填入 WECHAT_APPID / WECHAT_APPSECRET
 npm install -g @wenyan/cli    # 可选，排版用
 
+# 安装 Skills（Get笔记等）
+# https://clawhub.ai/iswalle/getnote
+# https://www.biji.com/skill
+
 # clone 方法层（当前仓库）
 cd .. && git clone https://github.com/timeyour/wechat-ops-sop.git
 ```
@@ -29,7 +33,7 @@ cd .. && git clone https://github.com/timeyour/wechat-ops-sop.git
 | **2** | 优化 | 内容优化 skill | — | 定稿文章 |
 | **3** | 配图 | `skills/image-generation/SKILL.md` | `cd ../wechat-auto-push-lib && python img_fallback.py cover "标题" --style tech` | 封面 + 内文图 |
 | **4** | 合规 | `skills/compliance-check/SKILL.md` | `cd ../wechat-auto-push-lib && python compliance_check.py article.md [--strict]` | 通过 / 需修改 |
-| **5** | 排版 | `skills/typesetting-publish/SKILL.md`<br>`skills/theme-gallery/SKILL.md` | `cd ../wechat-auto-push-lib && python _push_draft_v2.py` | HTML 草稿 |
+| **5** | 排版 | `skills/typesetting-publish/SKILL.md`<br>`skills/theme-gallery/SKILL.md` | WenYan + publisher.py（见下方详细命令） | HTML 草稿 |
 | **6** | 飞书录入 | — | `cd ../wechat-auto-push-lib && python _feishu_add_record.py` | 记录已存 |
 | **7** | 冷启动 | `skills/cold-start/SKILL.md` | 手动：转发群 + 小号互动 | 互动信号 |
 | **8** | 24h复盘 | `skills/data-review/SKILL.md`<br>`skills/growth-review/SKILL.md` | — | 复盘报告 |
@@ -70,5 +74,6 @@ node wenyan_render.mjs article.md out.html
 # 3. 用户预览确认后
 
 # 4. 推送草稿（WenYan路径）
+cd ../wechat-auto-push-lib
 python wechat_api/publisher.py --html out.html
 ```

@@ -6,7 +6,11 @@
 
 ## ⚠️ 前置依赖
 
-本 SOP 的 Phase 3-6 调用的脚本由 [wechat-auto-push-lib](https://github.com/timeyour/wechat-auto-push-lib) 提供：
+本 SOP 依赖两个安装项：
+
+### 1. 执行层 — 公众号脚本库
+
+Phase 3-6 调用的脚本由 [wechat-auto-push-lib](https://github.com/timeyour/wechat-auto-push-lib) 提供：
 
 ```bash
 git clone https://github.com/timeyour/wechat-auto-push-lib.git
@@ -20,6 +24,29 @@ npm install -g @wenyan/cli
 
 > 所需脚本：`img_fallback.py`、`compliance_check.py`、`wechat_api/publisher.py`、`_feishu_add_record.py` 均在 `wechat-auto-push-lib/` 目录下。
 > 使用 SOP 前确保执行层仓库已就位。
+
+### 2. Skills — AI Agent 技能包
+
+14 个运营 Skills（见 `skills/README.md`），以及 Get笔记 Skill（精选内容采集）：
+
+| Skill | 安装地址 |
+|-------|----------|
+| **Get笔记**（精选内容采集）| https://clawhub.ai/iswalle/getnote |
+
+> 快速安装：https://www.biji.com/skill
+
+### 3. 素材预处理（可选入口）
+
+如果文章素材已有（会议录音、文档、视频等），先经过预处理再进入 Phase 1：
+
+| 素材类型 | 处理方式 | 输出 |
+|----------|----------|------|
+| 会议笔记 / 文档 | LLM 整理结构化要点 | Markdown 大纲 |
+| 视频 / 录音 | Whisper/API 转录 → LLM 摘要 | Markdown 要点 |
+| 已有草稿 / 半成品 | LLM 润色 + 结构调整 | 可投稿文章 |
+
+> 输出：Markdown 要点/大纲 → **直接进入 Phase 1 写稿**
+> 三种入口（选题写稿 / 素材转公众号 / 自选题）最终都汇入 Phase 1，共用执行层脚本。
 
 ---
 
@@ -78,7 +105,7 @@ npm install -g @wenyan/cli
 
 ## Phase 3 — 配图
 
-**执行前读：** `skills/image-generation/SKILL.md`（8级降级链 v1.1）
+**执行前读：** `skills/image-generation/SKILL.md`（5级降级链 v1.1）
 
 **操作：**
 
@@ -215,4 +242,4 @@ cd ../wechat-auto-push-lib && python _feishu_add_record.py
 | 8 复盘 | data-review | `skills/data-review/SKILL.md` |
 | 全局复盘 | growth-review | `skills/growth-review/SKILL.md` |
 | 分发 | cross-platform | `skills/cross-platform/SKILL.md` |
-| SEO/GEO | seo-geo | `skills/seo-geo/SKILL.md`（ERE框架+十步法+v1.1） |
+| SEO/GEO | seo-geo | `skills/seo-geo/SKILL.md`（ERE框架+v1.1） |
